@@ -1,4 +1,5 @@
 import os
+import sys
 from pprint import pprint
 from dotenv import load_dotenv
 
@@ -10,7 +11,7 @@ from googleapiclient.http import MediaIoBaseDownload
 load_dotenv()
 
 # Constants
-CLIENT_SECRETS_FILE = os.getenv('CLIENT_SECRETS_FILE_PATH')
+CLIENT_SECRETS_FILE = os.getenv('CLIENT_SECRETS_FILEPATH')
 CONTENT_ID = os.getenv('CONTENT_ID')
 SCOPES = ['https://www.googleapis.com/auth/yt-analytics-monetary.readonly']
 API_SERVICE_NAME = 'youtubereporting'
@@ -36,16 +37,20 @@ def download_report():
 reporting_api = get_authenticated_service()
 
 ## List available report types:
-l_of_report_types = reporting_api.reportTypes().list(onBehalfOfContentOwner=CONTENT_ID).execute()
-pprint(l_of_report_types)
+l_of_report_types = reporting_api.reportTypes().list(
+    onBehalfOfContentOwner=CONTENT_ID
+).execute()
 
-## List scheduled jobs:
-l_of_scheduled_reporting_jobs = reporting_api.jobs().list().execute()
+## List scheduled jobs, created after: 2024-04-27:
+created_after = '2024-04-27T00:00:00.00Z'
+
+l_of_scheduled_reporting_jobs = reporting_api.jobs().list(
+    onBehalfOfContentOwner=CONTENT_ID
+    ,createdAfter = created_after
+).execute()
 
 ## Retrieve report's download link:
-job_id = ''
-created_after = '' # TODO
-download_url = reporting_api.jobs().reports().list(jobId=job_id, createdAfter=created_after).execute()
+job_id = l_of_scheduled_reporting_jobs['']
 
 ## Download file:
 ## TODO
