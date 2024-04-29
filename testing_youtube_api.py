@@ -49,6 +49,9 @@ l_of_scheduled_reporting_jobs = reporting_api.jobs().list(
     ,createdAfter = created_after
 ).execute()
 
+## View response in terminal
+pprint(l_of_scheduled_reporting_jobs)
+
 ## Retrieve report's download link:
 # job_id = l_of_scheduled_reporting_jobs['']
 
