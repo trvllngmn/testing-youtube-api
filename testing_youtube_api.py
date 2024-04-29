@@ -50,7 +50,7 @@ l_of_scheduled_reporting_jobs = reporting_api.jobs().list(
 ).execute()
 
 ## Retrieve report's download link:
-job_id = l_of_scheduled_reporting_jobs['']
+# job_id = l_of_scheduled_reporting_jobs['']
 
 ## Download file:
 ## TODO
