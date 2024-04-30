@@ -53,7 +53,14 @@ l_of_scheduled_reporting_jobs = reporting_api.jobs().list(
 pprint(l_of_scheduled_reporting_jobs)
 
 ## Retrieve report's download link:
-# job_id = l_of_scheduled_reporting_jobs['']
+job_id = '93bd5ae9-d9bc-4f2f-a48e-da0a7353e7f3'
 
+response = reporting_api.jobs().reports().list(
+    onBehalfOfContentOwner=CONTENT_ID
+    ,jobId = job_id
+    ,createdAfter = created_after
+).execute()
+
+pprint(response)
 ## Download file:
 ## TODO
